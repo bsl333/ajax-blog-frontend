@@ -1,0 +1,19 @@
+
+/* FOOTER CSS */
+html {
+  min-height: 100%;
+  position: relative;
+}
+body {
+  margin-bottom: 60px;
+}
+.sticky-footer {
+  position: absolute;
+  bottom: 0;
+  height: 30px;
+  width: 100%;
+  line-height: 1;
+}
+.sticky-footer .fa-heart {
+  color: pink
+}
