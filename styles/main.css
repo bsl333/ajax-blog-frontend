@@ -17,3 +17,7 @@ body {
 .sticky-footer .fa-heart {
   color: pink
 }
+
+.previous-post {
+  cursor: pointer;
+}

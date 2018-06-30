@@ -1,1 +1,38 @@
-console.error("SyntaxError: {\n  \"name\": \"blog-frontend\",\n  \"version\": \"1.0.0\",\n  \"description\": \"\",\n  \"main\": \"index.js\",\n  \"scripts\": {\n    \"test\": \"echo \\\"Error: no test specified\\\" && exit 1\",\n    \"build\": \"browserify ./scripts/main.js -o ./dist/bundle.js\",\n    \"watch\": \"watchify ./scripts/main.js -o ./dist/bundle.js\",\n    \"dev\" : \"run-all \\\"npm run watch\\\" \\\"live-server\\\"\",\n  },\n  \"keywords\": [],\n  \"author\": \"\",\n  \"license\": \"ISC\",\n  \"devDependencies\": {\n    \"browserify\": \"^16.2.2\",\n    \"live-server\": \"^1.2.0\",\n    \"run-all\": \"^1.0.1\",\n    \"watchify\": \"^3.11.0\"\n  }\n}\n : Unexpected token } in JSON at position 355");
+(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
+const render = require('./render')
+const baseURL = 'http://localhost:3000'
+axios.get(`${baseURL}/blog-post`)
+  .then(res => {
+    const ul = document.getElementById('previous-post')
+    const data = res.data.data
+    data.forEach(el => render.previousPosts(ul, el));
+    render.createEventListenersForPrevPosts()
+  })
+  .catch(e => console.log(e))
+
+},{"./render":2}],2:[function(require,module,exports){
+const template = require('./template')
+
+const previousPosts = (container, data) => {
+  const result = template.previousPosts(data)
+  container.innerHTML += result
+}
+
+const createEventListenersForPrevPosts = () => {
+  Array.from(document.getElementsByClassName('previous-post')).forEach(post => post.addEventListener('click', (event) => {
+      console.log(event.target)
+    })
+  )
+}
+
+module.exports = {
+  previousPosts,
+  createEventListenersForPrevPosts
+}
+},{"./template":3}],3:[function(require,module,exports){
+module.exports.previousPosts = ({ title, date }) => {
+  return `
+   <li class="list-group-item list-group-item-action previous-post">${title}</li>
+  `
+}
+},{}]},{},[1]);
