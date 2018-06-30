@@ -21,3 +21,7 @@ body {
 .previous-post {
   cursor: pointer;
 }
+
+h5 {
+  text-transform: uppercase
+}
