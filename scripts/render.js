@@ -15,7 +15,7 @@ const createEventListenersForPrevPosts = (data) => {
     const blog = data.find(el => el.id === event.target.id)
     selectedBlog(blog)
 
-    const selectedBlog1 = document.querySelector('#selected-blog1')
+    const selectedBlog1 = document.querySelector('#selected-blog-div')
     const newBlogForm = document.querySelector('#new-blog-form')
 
     // console.log(selectedBlog, newBlogForm)
@@ -27,12 +27,12 @@ const createEventListenersForPrevPosts = (data) => {
 }
 
 const selectedBlog = (data) => {
-  const container = document.querySelector('#selected-blog')
+  const container = document.querySelector('#selected-blog-content')
   container.innerHTML = template.selectedBlog(data) 
 }
 
 const showNewBlogSection = () => {
-    const selectedBlog = document.querySelector('#selected-blog1')
+    const selectedBlog = document.querySelector('#selected-blog-div')
     const newBlogForm = document.querySelector('#new-blog-form')
 
     // console.log(selectedBlog, newBlogForm)
