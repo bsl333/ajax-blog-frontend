@@ -22,6 +22,9 @@ body {
   cursor: pointer;
 }
 
+.selected-blog-div {
+  cursor: none;
+}
 h5 {
   text-transform: uppercase
 }

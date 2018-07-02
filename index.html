@@ -37,11 +37,11 @@
         <div class="col-md-1">
 
         </div>
-        <div class="col-md-6">
-          <div id="new-blog-form">
+        <div class="col-md-7">
+          <div id="new-blog-form d-none">
             <h4>new post</h4>
             <!-- <div class="list-group" id="selected-blog"> -->
-            <form class="blog-form">
+            <form id="blog-form">
               <div class="form-group">
                 <label for="title">Title</label>
                 <input type="text" class="form-control" name="title" id="title">
@@ -50,11 +50,11 @@
                 <label for="description">Description</label>
                 <textarea name="description" class="form-control" id="description" col-mds="30" rows="6"></textarea>
               </div>
+              <button class="btn btn-primary" type="submit" id="submit-blog-btn">Publish Your Blog!</button>
             </form>
-            <button class="btn btn-primary" type="submit" id="submit-form-btn">Publish Your Blog!</button>
           </div>
           <!-- FILL IN WITH THIS INFO WHEN A BLOG HAS BEEN SELECTED -->
-          <div class="" id="selected-blog-div">
+          <div class="selected-blog-div" id="selected-blog-div">
             <h4>Current post</h4>
             <div class="list-group" id="selected-blog-content">
             </div>

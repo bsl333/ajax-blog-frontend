@@ -18,7 +18,7 @@ module.exports.selectedBlog = ({ title, description, tags, date }) => {
       ${description}
     </p>
     <hr>
-    <small>${tags.join(' ')}<a href="#">edit</a> <a href="#" style="color: red">delete</a></small> 
+    <small>${tags ? tags.join(' ') : ''}<a href="#" id="update-blog-btn">Edit</a> <a href="#" style="color: red" id="delete-blog-btn">Delete</a></small> 
   </a>
   `
 }
