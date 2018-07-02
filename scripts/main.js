@@ -8,3 +8,7 @@ axios.get(`${baseURL}/blog-post`)
     render.createEventListenersForPrevPosts(data)
   })
   .catch(e => console.log(e))
+
+  const createNewPostBtn = document.querySelector('#create-new-blog-btn')
+
+  createNewPostBtn.addEventListener('click', render.showNewBlogSection)

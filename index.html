@@ -17,49 +17,51 @@
 <body>
   <header class="jumbotron">
     <h1 class="display-4">My Blog</h1>
-    <p class="lead">Simple blog for sharing whatever you think is cool for the day - could be a joke, recipe, or an opinion on an interesting topic.</p>
+    <p class="lead">Simple blog for sharing whatever you think is cool for the day - could be a joke, recipe, or an opinion on an interesting
+      topic.</p>
     <p class="lead">
-    <button class="btn btn-outline-primary">Create New Entry!</button>
+      <button class="btn btn-outline-primary" id="create-new-blog-btn">Create New Entry!</button>
     </p>
   </header>
 
   <main>
-    <div class="container-fluid">
+    <div class="container">
       <div class="row">
-        <div class="col-4">
+        <div class="col-md-4">
           <h4>previous posts</h4>
-          <ul class="list-group" id="previous-blogs">
+          <ul class="list-group mt-4" id="previous-blogs">
             <!-- <li class="list-group-item active">Post 1</li>
             <li class="list-group-item">Post 2</li> -->
           </ul>
         </div>
-        <div class="col-8 text-center">
-          <h4>current post</h4>
-          <div class="list-group" id="selected-blog">
-            <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-              <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-1">
-                  TITLE
-                </h5>
+        <div class="col-md-1">
+
+        </div>
+        <div class="col-md-6">
+          <div id="new-blog-form">
+            <h4>new post</h4>
+            <!-- <div class="list-group" id="selected-blog"> -->
+            <form class="blog-form">
+              <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" class="form-control" name="title" id="title">
               </div>
-              <p class="mb-1">
-                BLOG CONTENT
-              </p>
-              <small>TAGS</small>
-            </a>
-            <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                <div class="d-flex w-100 justify-content-between">
-                  <h5 class="mb-1">
-                    TITLE 2
-                  </h5>
-                </div>
-                <p class="mb-1">
-                  BLOG CONTENT 2
-                </p>
-                <small>TAGS</small>
-              </a>
+              <div class="form-group">
+                <label for="description">Description</label>
+                <textarea name="description" class="form-control" id="description" col-mds="30" rows="6"></textarea>
+              </div>
+            </form>
+            <button class="btn btn-primary" type="submit" id="submit-form-btn">Publish Your Blog!</button>
+          </div>
+          <div class="" id="selected-blog1">
+            <h4>Current post</h4>
+            <div class="list-group" id="selected-blog">
+            </div>
           </div>
         </div>
+
+        <!-- <div class="col-md-6 d-none" id="selected-blog1">
+        </div> -->
       </div>
     </div>
 
