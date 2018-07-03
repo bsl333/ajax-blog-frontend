@@ -18,9 +18,9 @@ module.exports.selectedBlog = ({ id, title, description, tags, date }) => {
       ${description}
     </p>
     <hr>
-    <div class="d-flex justify-content-between" id="${id}">
-      <button class="btn btn-outline-primary" id="update-blog-btn">Update</button>
-      <button class="btn btn-outline-danger" id="delete-blog-btn">Delete</button>
+    <div class="d-flex justify-content-end" id="${id}">
+      <button class="btn btn-outline-primary mr-2" id="update-blog-btn">Update</button>
+      <button class="btn btn-outline-danger ml-2" id="delete-blog-btn">Delete</button>
     </div>
   </a>
   `
