@@ -18,7 +18,7 @@ body {
   color: pink
 }
 
-.previous-post {
+#new-blog-form {
   cursor: pointer;
 }
 

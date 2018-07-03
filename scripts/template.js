@@ -1,6 +1,6 @@
 module.exports.previousBlogs = ({ title, date, id}) => {
   return `
-   <li class="list-group-item list-group-item-action previous-blogs" id="${id}">${title} -- ${date}
+   <li class="list-group-item list-group-item-action previous-blogs" id="${id}">${title}
     </li>
   `
 }

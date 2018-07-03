@@ -1,22 +1,9 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 const render = require('./render')
 const baseURL = 'http://localhost:3000'
-function getBlogPosts() {
-  return axios.get(`${baseURL}/blog-post`)
-    .then(res => {
-      const ul = document.getElementById('previous-blogs')
-      ul.innerHTML = ''
-      const data = res.data.data
-      data.forEach(el => render.previousBlogs(ul, el));
-      render.createEventListenersForPrevPosts(data)
-      render.showNewestBlog(data)
-      addUpdateBtn()
-      addDeleteBtn()
-    })
-    .catch(e => console.log(e))
-}
 
-getBlogPosts()
+render.getBlogPosts()
+
 
 const createNewPostBtn = document.querySelector('#create-new-blog-btn')
 createNewPostBtn.addEventListener('click', render.showNewBlogSection)
@@ -28,50 +15,39 @@ submitNewBlogForm.addEventListener('submit', (event) => {
   const description = event.target.description.value
   const date = new Date()
   const body = { title, description, date }
-
-  axios.post(`${baseURL}/blog-post`, body)
-    .then(res => {
-      getBlogPosts()
-    })
-    .catch(console.log)
-})
-
-function addDeleteBtn() {
-  const deleteBlogBtn = document.querySelector('#delete-blog-btn')
-
-  deleteBlogBtn.addEventListener('click', (event) => {
-    event.preventDefault()
-    const id = event.target.parentElement.id
-    console.log(id)
-    axios.delete(`${baseURL}/blog-post/${id}`)
-      .then(res => getBlogPosts())
+  const id = document.querySelector('.form-group').classList[1]
+  
+  if (!id) {
+    axios.post(`${baseURL}/blogs`, body)
+      .then(res => render.getBlogPosts())
+      .catch(console.log)
+  } else {
+    axios.put(`${baseURL}/blogs/${id}`, body)
+      .then(res =>  render.getBlogPosts())
       .catch(e => console.log(e))
-  })
-}
-
-function addUpdateBtn () {
-  const updateBlogBtn = document.querySelector('#update-blog-btn')
-  updateBlogBtn.addEventListener('click', (event) => {
-    event.preventDefault()
-    const id = event.target.parentElement.id
-    console.log(id)
-    const title = document.querySelector('#blog-title').textContent.trim()
-    const description = document.querySelector('#blog-description').textContent.trim()
-    console.log(title, description)
-  })
-}
+  }
+})
 
 
 
 },{"./render":2}],2:[function(require,module,exports){
 const template = require('./template')
+const baseURL = 'http://localhost:3000'
 
-const previousBlogs = (container, data) => {
-  // container.innerHTML = ''
-  const result = template.previousBlogs(data)
-  container.innerHTML += result
+function getBlogPosts() {
+  return axios.get(`${baseURL}/blogs`)
+    .then(res => {
+      const ul = document.getElementById('previous-blogs')
+      ul.innerHTML = ''
+      const data = res.data.data
+      data.forEach(el => previousBlogs(ul, el));
+      createEventListenersForPrevPosts(data)
+      showNewestBlog(data)
+      addUpdateBtn()
+      addDeleteBtn()
+    })
+    .catch(e => console.log(e))
 }
-
 const createEventListenersForPrevPosts = (data) => {
   const previousBlogs = Array.from(document.getElementsByClassName('previous-blogs'))
   previousBlogs.forEach(blog => blog.addEventListener('click', (event) => {
@@ -80,9 +56,17 @@ const createEventListenersForPrevPosts = (data) => {
     const blog = data.find(el => el.id === event.target.id)
     selectedBlog(blog)
     showSelectedBlog()
+    addDeleteBtn()
+    addUpdateBtn()
     })
   )
 }
+
+const previousBlogs = (container, data) => {
+  const result = template.previousBlogs(data)
+  container.innerHTML += result
+}
+
 
 const selectedBlog = (blog) => {
   const container = document.querySelector('#selected-blog-content')
@@ -102,11 +86,14 @@ const showNewestBlog = (data) => {
 }
 
 
-const showNewBlogSection = (data) => {
+const showNewBlogSection = () => {
   const selectedBlog = document.querySelector('#selected-blog-div')
   const newBlogForm = document.querySelector('#new-blog-form')
   selectedBlog.classList.add('d-none')
   newBlogForm.classList.remove('d-none')
+  document.querySelector('#title').value = ''
+  document.querySelector('#description').value = ''
+  document.querySelector('.form-group').className = 'form-group'
   removeActiveClassFromPreviousBlogs()
 }
 const removeActiveClassFromPreviousBlogs = () => {
@@ -114,7 +101,34 @@ const removeActiveClassFromPreviousBlogs = () => {
   previousBlogs.forEach(blog => blog.classList.remove('active'))
 }
 
+
+function addDeleteBtn() {
+  const deleteBlogBtn = document.querySelector('#delete-blog-btn')
+  deleteBlogBtn.addEventListener('click', (event) => {
+    event.preventDefault()
+    const id = event.target.parentElement.id
+    axios.delete(`${baseURL}/blogs/${id}`)
+      .then(res => getBlogPosts())
+      .catch(e => console.log(e))
+  })
+}
+
+function addUpdateBtn () {
+  const updateBlogBtn = document.querySelector('#update-blog-btn')
+  updateBlogBtn.addEventListener('click', (event) => {
+    event.preventDefault()
+    const id = event.target.parentElement.id
+    const title = document.querySelector('#blog-title').textContent.trim()
+    const description = document.querySelector('#blog-description').textContent.trim()
+    showNewBlogSection()
+    document.querySelector('#title').value = title
+    document.querySelector('#description').value = description
+    document.querySelector('.form-group').className = `form-group ${id}`
+  })
+}
+
 module.exports = {
+  getBlogPosts,
   previousBlogs,
   createEventListenersForPrevPosts,
   showNewBlogSection,
@@ -125,7 +139,7 @@ module.exports = {
 },{"./template":3}],3:[function(require,module,exports){
 module.exports.previousBlogs = ({ title, date, id}) => {
   return `
-   <li class="list-group-item list-group-item-action previous-blogs" id="${id}">${title} -- ${date}
+   <li class="list-group-item list-group-item-action previous-blogs" id="${id}">${title}
     </li>
   `
 }
