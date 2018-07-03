@@ -1,5 +1,6 @@
 const template = require('./template')
-const baseURL = 'http://localhost:3000'
+// const baseURL = 'http://localhost:3000'
+const baseURL = `https://mighty-chamber-18947.herokuapp.com`
 
 function getBlogPosts() {
   return axios.get(`${baseURL}/blogs`)

@@ -18,7 +18,12 @@ module.exports.selectedBlog = ({ id, title, description, tags, date }) => {
       ${description}
     </p>
     <hr>
-    <small id=${id}>${tags ? tags.join(' ') : ''}<a href="#" id="update-blog-btn">Edit</a> <a href="#" style="color: red" id="delete-blog-btn">Delete</a></small> 
+    <div class="d-flex justify-content-between" id="${id}">
+      <button class="btn btn-outline-primary" id="update-blog-btn">Update</button>
+      <button class="btn btn-outline-danger" id="delete-blog-btn">Delete</button>
+    </div>
   </a>
   `
 }
+
+// <small id=${id}>${tags ? tags.join(' ') : ''}<a href="#" id="update-blog-btn">Edit</a> <a href="#" style="color: red" id="delete-blog-btn">Delete</a></small> 

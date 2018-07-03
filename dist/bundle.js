@@ -1,7 +1,7 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 const render = require('./render')
-const baseURL = 'http://localhost:3000'
-
+// const baseURL = 'http://localhost:3000'
+const baseURL = `https://mighty-chamber-18947.herokuapp.com`
 render.getBlogPosts()
 
 
@@ -32,7 +32,8 @@ submitNewBlogForm.addEventListener('submit', (event) => {
 
 },{"./render":2}],2:[function(require,module,exports){
 const template = require('./template')
-const baseURL = 'http://localhost:3000'
+// const baseURL = 'http://localhost:3000'
+const baseURL = `https://mighty-chamber-18947.herokuapp.com`
 
 function getBlogPosts() {
   return axios.get(`${baseURL}/blogs`)
@@ -157,8 +158,13 @@ module.exports.selectedBlog = ({ id, title, description, tags, date }) => {
       ${description}
     </p>
     <hr>
-    <small id=${id}>${tags ? tags.join(' ') : ''}<a href="#" id="update-blog-btn">Edit</a> <a href="#" style="color: red" id="delete-blog-btn">Delete</a></small> 
+    <div class="d-flex justify-content-between" id="${id}">
+      <button class="btn btn-outline-primary" id="update-blog-btn">Update</button>
+      <button class="btn btn-outline-danger" id="delete-blog-btn">Delete</button>
+    </div>
   </a>
   `
 }
+
+// <small id=${id}>${tags ? tags.join(' ') : ''}<a href="#" id="update-blog-btn">Edit</a> <a href="#" style="color: red" id="delete-blog-btn">Delete</a></small> 
 },{}]},{},[1]);
